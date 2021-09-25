@@ -1,0 +1,91 @@
+services:
+  as-router:
+    image: projet-interco/router
+    build: ./dockerfiles/router
+    container_name: as-router
+    cap_add:
+      - NET_ADMIN
+    volumes:
+      - ./configs/as-router:/config
+    networks:
+      default:
+      as:
+        ipv4_address: 120.0.16.2
+
+  b1-router:
+    image: projet-interco/router
+    build: ./dockerfiles/router
+    container_name: b1-router
+    cap_add:
+      - NET_ADMIN
+    networks:
+      as:
+        ipv4_address: 120.0.16.4
+      b1:
+        ipv4_address: 120.0.24.2
+
+  b2-router:
+    image: projet-interco/router
+    build: ./dockerfiles/router
+    container_name: b2-router
+    cap_add:
+      - NET_ADMIN
+    networks:
+      as:
+        ipv4_address: 120.0.16.5
+      b2:
+        ipv4_address: 120.0.28.2
+
+  ind-router:
+    image: projet-interco/router
+    build: ./dockerfiles/router
+    container_name: ind-router
+    cap_add:
+      - NET_ADMIN
+    networks:
+      as:
+        ipv4_address: 120.0.16.3
+      ind:
+        ipv4_address: 120.0.20.2
+
+  i1-router:
+    image: projet-interco/router
+    build: ./dockerfiles/router
+    container_name: i1-router
+    cap_add:
+      - NET_ADMIN
+    volumes:
+      - ./configs/i1-i2-router:/config
+    networks:
+      ind:
+        ipv4_address: 120.0.20.3
+
+  i2-router:
+    image: projet-interco/router
+    build: ./dockerfiles/router
+    container_name: i2-router
+    cap_add:
+      - NET_ADMIN
+    volumes:
+      - ./configs/i1-i2-router:/config
+    networks:
+      ind:
+        ipv4_address: 120.0.20.4
+
+networks:
+  as:
+    ipam:
+      config:
+        - subnet: 120.0.16.0/22
+  ind:
+    ipam:
+      config:
+        - subnet: 120.0.20.0/22
+  b1:
+    ipam:
+      config:
+        - subnet: 120.0.24.0/22
+  b2:
+    ipam:
+      config:
+        - subnet: 120.0.28.0/22
