@@ -5,8 +5,12 @@ services:
     container_name: as-router
     cap_add:
       - NET_ADMIN
+    environment:
+      - APP_NAME=as-router
     volumes:
-      - ./configs/as-router:/config
+      - ./scripts/as-router:/scripts
+    ports:
+      - 5800:5800
     networks:
       default:
       as:
@@ -18,6 +22,10 @@ services:
     container_name: b1-router
     cap_add:
       - NET_ADMIN
+    environment:
+      - APP_NAME=b1-router
+    ports:
+      - 5810:5800
     networks:
       as:
         ipv4_address: 120.0.16.4
@@ -30,6 +38,10 @@ services:
     container_name: b2-router
     cap_add:
       - NET_ADMIN
+    environment:
+      - APP_NAME=b2-router
+    ports:
+      - 5820:5800
     networks:
       as:
         ipv4_address: 120.0.16.5
@@ -42,6 +54,10 @@ services:
     container_name: ind-router
     cap_add:
       - NET_ADMIN
+    environment:
+      - APP_NAME=ind-router
+    ports:
+      - 5830:5800
     networks:
       as:
         ipv4_address: 120.0.16.3
@@ -54,8 +70,12 @@ services:
     container_name: i1-router
     cap_add:
       - NET_ADMIN
+    environment:
+      - APP_NAME=i1-router
     volumes:
-      - ./configs/i1-i2-router:/config
+      - ./scripts/i1-i2-router:/scripts
+    ports:
+      - 5840:5800
     networks:
       ind:
         ipv4_address: 120.0.20.3
@@ -66,8 +86,12 @@ services:
     container_name: i2-router
     cap_add:
       - NET_ADMIN
+    environment:
+      - APP_NAME=i2-router
     volumes:
-      - ./configs/i1-i2-router:/config
+      - ./scripts/i1-i2-router:/scripts
+    ports:
+      - 5850:5800
     networks:
       ind:
         ipv4_address: 120.0.20.4
