@@ -1,0 +1,26 @@
+# https://github.com/LeoVerto/docker-network-graph
+# https://dreampuf.github.io/GraphvizOnline/
+graph {
+	graph [splines=true]
+	"network_projet-interco_default" [label="{<gw_iface> 172.18.0.0/16 | projet-interco_default}" fillcolor="#6a3d9a" shape=record style=filled]
+	"network_projet-interco_as" [label="{<gw_iface> 120.0.16.0/22 | projet-interco_as}" fillcolor="#33a02c" shape=record style=filled]
+	"network_projet-interco_ind" [label="{<gw_iface> 120.0.20.0/22 | projet-interco_ind}" fillcolor="#b15928" shape=record style=filled]
+	"network_projet-interco_b1" [label="{<gw_iface> 120.0.24.0/22 | projet-interco_b1}" fillcolor="#e31a1c" shape=record style=filled]
+	"network_projet-interco_b2" [label="{<gw_iface> 120.0.28.0/22 | projet-interco_b2}" fillcolor="#ff7f00" shape=record style=filled]
+	container_0bc9ba1a40584de64b0a8c11259ec0fa5eba2c5fe5d65fd2732493faf3f1333b [label="{ as-router | { {<f2d827a7ad21a7c9a19ea0bf8f0da0b164b4c1e9fbfd7d9fcf3af17775879044> 120.0.16.2 } | {<9f110762aa08f95fc1f023b010951b360daadb7da861f958f933623248ea12fa> 172.18.0.2 } } }" fillcolor="#ff9999" shape=record style=filled]
+	container_30c1bcca204c3d06813042dd302814c784b4a1fbbba1f63b322f575f3d8a3ddc [label="{ ind-router | { {<63ab3836e6217c2b0a10edf7cbcbd5097aa53a71210090ee719f4d4240add3b5> 120.0.16.3 } | {<72faedd51d9f62a4e238e63b05b2dd77ee812d954f3266b0bb5bf790159787fd> 120.0.20.2 } } }" fillcolor="#ff9999" shape=record style=filled]
+	container_2a25cb8190ddafb903180a0cc49fc3ab775a59c895a7eb45d8fa8371458dcc12 [label="{ i1-router | { {<404087a2f7e7e4433dcd11dd34d6849659d6c142159692045069a6ba10e768e2> 120.0.20.3 } } }" fillcolor="#ff9999" shape=record style=filled]
+	container_a49cca8e3cb9fb1e1f947eb5814e719b89eacaa308c17a74692b661bffb236cf [label="{ i2-router | { {<01e4623bde6e3d61f56fcf18db1c91848857fa50ea106c7a1a80f86a737dba6f> 120.0.20.4 } } }" fillcolor="#ff9999" shape=record style=filled]
+	container_8bdeff7bd890d70ef9976dfd49e49d14cd3aab65509075b8989c4cf9897c5cfe [label="{ b1-router | { {<ba8c30730a4885275e2d42c1ca9f0dffdc5fb07a1491b3be0013861bb955bd30> 120.0.16.4 } | {<6cf9bc185fca32cb6abd213e49855de852928405c1135c44d7fd63e00cdb5299> 120.0.24.2 } } }" fillcolor="#ff9999" shape=record style=filled]
+	container_0c65e3bbc2cb5cab9f916dd9b702ef08c82537aff5a20784a2f9e75197caa60e [label="{ b2-router | { {<89c8db29f882e718ef688b85adcdbc95085f0e445af30dc45df1127bb03cf744> 120.0.16.5 } | {<18e35bfea1db6808b122d0e926a64ec2708a8e8b816e520721717dd5fe63758f> 120.0.28.2 } } }" fillcolor="#ff9999" shape=record style=filled]
+	container_0bc9ba1a40584de64b0a8c11259ec0fa5eba2c5fe5d65fd2732493faf3f1333b:"9f110762aa08f95fc1f023b010951b360daadb7da861f958f933623248ea12fa" -- "network_projet-interco_default" [color="#6a3d9a"]
+	container_0c65e3bbc2cb5cab9f916dd9b702ef08c82537aff5a20784a2f9e75197caa60e:"89c8db29f882e718ef688b85adcdbc95085f0e445af30dc45df1127bb03cf744" -- "network_projet-interco_as" [color="#33a02c"]
+	container_30c1bcca204c3d06813042dd302814c784b4a1fbbba1f63b322f575f3d8a3ddc:"63ab3836e6217c2b0a10edf7cbcbd5097aa53a71210090ee719f4d4240add3b5" -- "network_projet-interco_as" [color="#33a02c"]
+	container_0bc9ba1a40584de64b0a8c11259ec0fa5eba2c5fe5d65fd2732493faf3f1333b:f2d827a7ad21a7c9a19ea0bf8f0da0b164b4c1e9fbfd7d9fcf3af17775879044 -- "network_projet-interco_as" [color="#33a02c"]
+	container_8bdeff7bd890d70ef9976dfd49e49d14cd3aab65509075b8989c4cf9897c5cfe:ba8c30730a4885275e2d42c1ca9f0dffdc5fb07a1491b3be0013861bb955bd30 -- "network_projet-interco_as" [color="#33a02c"]
+	container_a49cca8e3cb9fb1e1f947eb5814e719b89eacaa308c17a74692b661bffb236cf:"01e4623bde6e3d61f56fcf18db1c91848857fa50ea106c7a1a80f86a737dba6f" -- "network_projet-interco_ind" [color="#b15928"]
+	container_30c1bcca204c3d06813042dd302814c784b4a1fbbba1f63b322f575f3d8a3ddc:"72faedd51d9f62a4e238e63b05b2dd77ee812d954f3266b0bb5bf790159787fd" -- "network_projet-interco_ind" [color="#b15928"]
+	container_2a25cb8190ddafb903180a0cc49fc3ab775a59c895a7eb45d8fa8371458dcc12:"404087a2f7e7e4433dcd11dd34d6849659d6c142159692045069a6ba10e768e2" -- "network_projet-interco_ind" [color="#b15928"]
+	container_8bdeff7bd890d70ef9976dfd49e49d14cd3aab65509075b8989c4cf9897c5cfe:"6cf9bc185fca32cb6abd213e49855de852928405c1135c44d7fd63e00cdb5299" -- "network_projet-interco_b1" [color="#e31a1c"]
+	container_0c65e3bbc2cb5cab9f916dd9b702ef08c82537aff5a20784a2f9e75197caa60e:"18e35bfea1db6808b122d0e926a64ec2708a8e8b816e520721717dd5fe63758f" -- "network_projet-interco_b2" [color="#ff7f00"]
+}

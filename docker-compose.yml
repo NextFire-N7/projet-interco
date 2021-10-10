@@ -24,6 +24,8 @@ services:
       - NET_ADMIN
     environment:
       - APP_NAME=b1-router
+    volumes:
+      - ./scripts/b1-router:/scripts
     ports:
       - 5810:5800
     networks:
@@ -40,6 +42,8 @@ services:
       - NET_ADMIN
     environment:
       - APP_NAME=b2-router
+    volumes:
+      - ./scripts/b2-router:/scripts
     ports:
       - 5820:5800
     networks:
@@ -56,6 +60,8 @@ services:
       - NET_ADMIN
     environment:
       - APP_NAME=ind-router
+    volumes:
+      - ./scripts/ind-router:/scripts
     ports:
       - 5830:5800
     networks:
@@ -73,7 +79,7 @@ services:
     environment:
       - APP_NAME=i1-router
     volumes:
-      - ./scripts/i1-i2-router:/scripts
+      - ./scripts/i1-router:/scripts
     ports:
       - 5840:5800
     networks:
@@ -89,7 +95,7 @@ services:
     environment:
       - APP_NAME=i2-router
     volumes:
-      - ./scripts/i1-i2-router:/scripts
+      - ./scripts/i2-router:/scripts
     ports:
       - 5850:5800
     networks:
