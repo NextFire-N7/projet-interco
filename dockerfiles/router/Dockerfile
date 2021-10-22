@@ -1,8 +1,8 @@
-FROM jlesage/baseimage-gui:alpine-3.12
+FROM alpine
 
-ENV USER_ID=0
-ENV GROUP_ID=0
+RUN apk add --no-cache \
+    font-noto \
+    wireshark \
+    wireguard-tools
 
-RUN apk add --no-cache wireshark
-
-COPY startapp.sh /startapp.sh
+ENTRYPOINT /scripts/init.sh; sleep infinity

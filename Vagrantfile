@@ -75,6 +75,5 @@ Vagrant.configure("2") do |config|
   #   apt-get install -y apache2
   # SHELL
   config.vm.provision "shell", inline: "pacman --noconfirm -Syu", reboot: true
-  config.vm.provision "shell", inline: "cd /vagrant && ./vagrant/install.sh", reboot: true
-  config.vm.provision "shell", inline: "cd /vagrant && ./vagrant/start.sh", run: "always"
+  config.vm.provision "shell", inline: "cd /vagrant && ./vagrant-init.sh", reboot: true
 end

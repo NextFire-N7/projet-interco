@@ -6,11 +6,10 @@ services:
     cap_add:
       - NET_ADMIN
     environment:
-      - APP_NAME=as-router
+      - DISPLAY
     volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
       - ./scripts/as-router:/scripts
-    ports:
-      - 5800:5800
     networks:
       default:
       as:
@@ -23,11 +22,10 @@ services:
     cap_add:
       - NET_ADMIN
     environment:
-      - APP_NAME=b1-router
+      - DISPLAY
     volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
       - ./scripts/b1-router:/scripts
-    ports:
-      - 5810:5800
     networks:
       as:
         ipv4_address: 120.0.16.4
@@ -41,11 +39,10 @@ services:
     cap_add:
       - NET_ADMIN
     environment:
-      - APP_NAME=b2-router
+      - DISPLAY
     volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
       - ./scripts/b2-router:/scripts
-    ports:
-      - 5820:5800
     networks:
       as:
         ipv4_address: 120.0.16.5
@@ -59,11 +56,10 @@ services:
     cap_add:
       - NET_ADMIN
     environment:
-      - APP_NAME=ind-router
+      - DISPLAY
     volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
       - ./scripts/ind-router:/scripts
-    ports:
-      - 5830:5800
     networks:
       as:
         ipv4_address: 120.0.16.3
@@ -77,11 +73,10 @@ services:
     cap_add:
       - NET_ADMIN
     environment:
-      - APP_NAME=i1-router
+      - DISPLAY
     volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
       - ./scripts/i1-router:/scripts
-    ports:
-      - 5840:5800
     networks:
       ind:
         ipv4_address: 120.0.20.3
@@ -93,11 +88,10 @@ services:
     cap_add:
       - NET_ADMIN
     environment:
-      - APP_NAME=i2-router
+      - DISPLAY
     volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
       - ./scripts/i2-router:/scripts
-    ports:
-      - 5850:5800
     networks:
       ind:
         ipv4_address: 120.0.20.4
