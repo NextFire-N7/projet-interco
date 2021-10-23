@@ -1,34 +1,22 @@
 services:
   as-router:
-    image: projet-interco/router
-    build:
-      context: .
-      target: router
-    container_name: as-router
-    cap_add:
-      - NET_ADMIN
-    environment:
-      - DISPLAY=${DISPLAY:-:0}
+    extends:
+      file: ./docker-compose-common.yml
+      service: router
     volumes:
-      - /tmp/.X11-unix:/tmp/.X11-unix
-      - ./scripts/as-router:/scripts
+      - ./scripts/as-router:/scripts # `init.sh` location
     networks:
-      default:
+      # networks attached to the container
+      default: null # the default network, bridged to the host
       as:
-        ipv4_address: 120.0.16.2
+        # `as` network defined in the `networks` section below
+        ipv4_address: 120.0.16.2 # static IP
 
   b1-router:
-    image: projet-interco/router
-    build:
-      context: .
-      target: router
-    container_name: b1-router
-    cap_add:
-      - NET_ADMIN
-    environment:
-      - DISPLAY=${DISPLAY:-:0}
+    extends:
+      file: ./docker-compose-common.yml
+      service: router
     volumes:
-      - /tmp/.X11-unix:/tmp/.X11-unix
       - ./scripts/b1-router:/scripts
     networks:
       as:
@@ -37,17 +25,10 @@ services:
         ipv4_address: 120.0.24.2
 
   b2-router:
-    image: projet-interco/router
-    build:
-      context: .
-      target: router
-    container_name: b2-router
-    cap_add:
-      - NET_ADMIN
-    environment:
-      - DISPLAY=${DISPLAY:-:0}
+    extends:
+      file: ./docker-compose-common.yml
+      service: router
     volumes:
-      - /tmp/.X11-unix:/tmp/.X11-unix
       - ./scripts/b2-router:/scripts
     networks:
       as:
@@ -56,17 +37,10 @@ services:
         ipv4_address: 120.0.28.2
 
   ind-router:
-    image: projet-interco/router
-    build:
-      context: .
-      target: router
-    container_name: ind-router
-    cap_add:
-      - NET_ADMIN
-    environment:
-      - DISPLAY=${DISPLAY:-:0}
+    extends:
+      file: ./docker-compose-common.yml
+      service: router
     volumes:
-      - /tmp/.X11-unix:/tmp/.X11-unix
       - ./scripts/ind-router:/scripts
     networks:
       as:
@@ -75,34 +49,20 @@ services:
         ipv4_address: 120.0.20.2
 
   i1-router:
-    image: projet-interco/router
-    build:
-      context: .
-      target: router
-    container_name: i1-router
-    cap_add:
-      - NET_ADMIN
-    environment:
-      - DISPLAY=${DISPLAY:-:0}
+    extends:
+      file: ./docker-compose-common.yml
+      service: router
     volumes:
-      - /tmp/.X11-unix:/tmp/.X11-unix
       - ./scripts/i1-router:/scripts
     networks:
       ind:
         ipv4_address: 120.0.20.3
 
   i2-router:
-    image: projet-interco/router
-    build:
-      context: .
-      target: router
-    container_name: i2-router
-    cap_add:
-      - NET_ADMIN
-    environment:
-      - DISPLAY=${DISPLAY:-:0}
+    extends:
+      file: ./docker-compose-common.yml
+      service: router
     volumes:
-      - /tmp/.X11-unix:/tmp/.X11-unix
       - ./scripts/i2-router:/scripts
     networks:
       ind:
@@ -125,3 +85,4 @@ networks:
     ipam:
       config:
         - subnet: 120.0.28.0/22
+
