@@ -74,6 +74,6 @@ Vagrant.configure("2") do |config|
   #   apt-get update
   #   apt-get install -y apache2
   # SHELL
-  config.vm.provision "shell", inline: "pacman --noconfirm -Syu", reboot: true
+  config.vm.provision "shell", inline: "pacman --noconfirm -Sy archlinux-keyring && pacman --noconfirm -Su", reboot: true
   config.vm.provision "shell", inline: "cd /vagrant && ./vagrant-init.sh", reboot: true
 end
