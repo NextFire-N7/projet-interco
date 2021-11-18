@@ -12,60 +12,48 @@ services:
         # `as` network defined in the `networks` section below
         ipv4_address: 120.0.16.2 # static IP
 
-  b1-router:
+  b-router:
     extends:
       file: ./docker-compose-common.yml
       service: router
     volumes:
-      - ./scripts/b1-router:/scripts
-    networks:
-      as:
-        ipv4_address: 120.0.16.4
-      b1:
-        ipv4_address: 120.0.24.2
-
-  b2-router:
-    extends:
-      file: ./docker-compose-common.yml
-      service: router
-    volumes:
-      - ./scripts/b2-router:/scripts
-    networks:
-      as:
-        ipv4_address: 120.0.16.5
-      b2:
-        ipv4_address: 120.0.28.2
-
-  ind-router:
-    extends:
-      file: ./docker-compose-common.yml
-      service: router
-    volumes:
-      - ./scripts/ind-router:/scripts
+      - ./scripts/b-router:/scripts
     networks:
       as:
         ipv4_address: 120.0.16.3
-      ind:
+      businesses:
+        ipv4_address: 120.0.24.2
+
+  isp-router:
+    extends:
+      file: ./docker-compose-common.yml
+      service: router
+    volumes:
+      - ./scripts/isp-router:/scripts
+    networks:
+      as:
+        ipv4_address: 120.0.16.4
+      isp:
         ipv4_address: 120.0.20.2
 
-  i1-router:
+  c1-router:
     extends:
       file: ./docker-compose-common.yml
       service: router
     volumes:
-      - ./scripts/i1-router:/scripts
+      - ./scripts/c1-router:/scripts
     networks:
-      ind:
+      isp:
         ipv4_address: 120.0.20.3
 
-  i2-router:
+  c2-router:
     extends:
       file: ./docker-compose-common.yml
       service: router
     volumes:
-      - ./scripts/i2-router:/scripts
+      - ./scripts/c2-router:/scripts
     networks:
-      ind:
+      isp:
         ipv4_address: 120.0.20.4
 
 networks:
@@ -73,16 +61,11 @@ networks:
     ipam:
       config:
         - subnet: 120.0.16.0/22
-  ind:
+  isp:
     ipam:
       config:
         - subnet: 120.0.20.0/22
-  b1:
+  businesses:
     ipam:
       config:
-        - subnet: 120.0.24.0/22
-  b2:
-    ipam:
-      config:
-        - subnet: 120.0.28.0/22
-
+        - subnet: 120.0.24.0/21
