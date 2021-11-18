@@ -12,28 +12,38 @@ services:
         # `as` network defined in the `networks` section below
         ipv4_address: 120.0.16.2 # static IP
 
-  b-router:
+  isp-b-router:
     extends:
       file: ./docker-compose-common.yml
       service: router
     volumes:
-      - ./scripts/b-router:/scripts
+      - ./scripts/isp-b-router:/scripts
     networks:
       as:
         ipv4_address: 120.0.16.3
-      businesses:
+      isp-b:
         ipv4_address: 120.0.24.2
 
-  isp-router:
+  b1-router:
     extends:
       file: ./docker-compose-common.yml
       service: router
     volumes:
-      - ./scripts/isp-router:/scripts
+      - ./scripts/b1-router:/scripts
+    networks:
+      isp-b:
+        ipv4_address: 120.0.24.3
+
+  isp-c-router:
+    extends:
+      file: ./docker-compose-common.yml
+      service: router
+    volumes:
+      - ./scripts/isp-c-router:/scripts
     networks:
       as:
         ipv4_address: 120.0.16.4
-      isp:
+      isp-c:
         ipv4_address: 120.0.20.2
 
   c1-router:
@@ -43,7 +53,7 @@ services:
     volumes:
       - ./scripts/c1-router:/scripts
     networks:
-      isp:
+      isp-c:
         ipv4_address: 120.0.20.3
 
   c2-router:
@@ -53,7 +63,7 @@ services:
     volumes:
       - ./scripts/c2-router:/scripts
     networks:
-      isp:
+      isp-c:
         ipv4_address: 120.0.20.4
 
 networks:
@@ -61,11 +71,11 @@ networks:
     ipam:
       config:
         - subnet: 120.0.16.0/22
-  isp:
-    ipam:
-      config:
-        - subnet: 120.0.20.0/22
-  businesses:
+  isp-b:
     ipam:
       config:
         - subnet: 120.0.24.0/21
+  isp-c:
+    ipam:
+      config:
+        - subnet: 120.0.20.0/22

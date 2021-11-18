@@ -25,4 +25,3 @@ services:
       service: x11-forwarding
     build:
       target: client
-
