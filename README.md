@@ -54,3 +54,7 @@ $ docker compose as-router sh
 This will open a shell (`sh`) on the container associated with the `as-router` service in the [docker-compose.yml](./docker-compose.yml)).
 
 X11 forwarding is enabled on containers with the `DISPLAY` env variable and `/tmp/.X11-unix` socket mount, so you can freely execute Wireshark, Firefox or any other graphical application inside them.
+
+## Host routing
+
+Run [`host-routing.sh`](./host-routing.sh) on host as root to setup forwarding and iptables to access the Docker network from the host and outside.

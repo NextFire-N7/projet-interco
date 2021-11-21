@@ -7,7 +7,6 @@ services:
       - ./scripts/as-router:/scripts # `init.sh` location
     networks:
       # networks attached to the container
-      default: null # the default network, bridged to the host
       as:
         # `as` network defined in the `networks` section below
         ipv4_address: 120.0.16.2 # static IP
