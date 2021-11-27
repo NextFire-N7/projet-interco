@@ -5,7 +5,7 @@ services:
       service: router
     volumes:
       - ./scripts/as-router:/scripts # `init.sh` location
-      - ./scripts/as-router/quagga:/etc/quagga
+      - ./scripts/as-router/quagga:/etc/quagga # quagga configs
     networks:
       # networks attached to the container
       as:
