@@ -7,7 +7,7 @@ ENTRYPOINT ./init.sh; sleep infinity
 
 # router stage, "extends" the base one
 FROM base AS router
-RUN apk add --no-cache openvpn
+RUN apk add --no-cache openvpn quagga busybox-extras
 
 # client stage, "extends" the base one
 FROM base AS client
