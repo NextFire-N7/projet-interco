@@ -18,7 +18,8 @@ services:
       target: router # use the `router` stage
     cap_add:
       # by default the root user in containers do not have all capacities
-      - NET_ADMIN # authorize network management (to create routes, mangage interfaces, forwarding, etc...)
+      - NET_ADMIN # Perform various network-related operations.
+      - SYS_ADMIN # Perform a range of system administration operations.
 
   client:
     extends:

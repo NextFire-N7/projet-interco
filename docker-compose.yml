@@ -5,7 +5,6 @@ services:
       service: router
     volumes:
       - ./scripts/as-router:/scripts # `init.sh` location
-      - ./scripts/as-router/quagga:/etc/quagga # quagga configs
     networks:
       # networks attached to the container
       as:
@@ -18,7 +17,6 @@ services:
       service: router
     volumes:
       - ./scripts/isp-b-router:/scripts
-      - ./scripts/isp-b-router/quagga:/etc/quagga
     networks:
       as:
         ipv4_address: 120.0.16.3
@@ -31,7 +29,6 @@ services:
       service: router
     volumes:
       - ./scripts/b1-router:/scripts
-      - ./scripts/b1-router/quagga:/etc/quagga
     networks:
       isp-b:
         ipv4_address: 120.0.24.3
@@ -42,7 +39,6 @@ services:
       service: router
     volumes:
       - ./scripts/isp-c-router:/scripts
-      - ./scripts/isp-c-router/quagga:/etc/quagga
     networks:
       as:
         ipv4_address: 120.0.16.4
@@ -55,7 +51,6 @@ services:
       service: router
     volumes:
       - ./scripts/c1-router:/scripts
-      - ./scripts/c1-router/quagga:/etc/quagga
     networks:
       isp-c:
         ipv4_address: 120.0.20.3
@@ -66,7 +61,6 @@ services:
       service: router
     volumes:
       - ./scripts/c2-router:/scripts
-      - ./scripts/c2-router/quagga:/etc/quagga
     networks:
       isp-c:
         ipv4_address: 120.0.20.4
