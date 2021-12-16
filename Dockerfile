@@ -1,6 +1,6 @@
 # base stage
 FROM alpine AS base
-RUN apk add --no-cache font-noto wireshark firefox
+RUN apk add --no-cache font-noto wireshark firefox irssi
 
 # router stage
 FROM base AS router

@@ -59,6 +59,15 @@ services:
       priv-1:
         ipv4_address: 192.168.0.254
 
+  client1:
+    extends:
+      file: ./docker-compose-common.yml
+      service: client
+    volumes:
+      - ./data/client1:/data
+    networks:
+      - priv-1
+
   c2-router:
     extends:
       file: ./docker-compose-common.yml
@@ -71,14 +80,11 @@ services:
       priv-2:
         ipv4_address: 192.168.1.254
 
-  client1:
-    extends:
-      file: ./docker-compose-common.yml
-      service: client
-    volumes:
-      - ./data/client1:/data
+  irc:
+    image: ergochat/ergo
     networks:
-      - priv-1
+      as:
+        ipv4_address: 120.0.16.10
 
 networks:
   as:

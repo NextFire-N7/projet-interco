@@ -18,4 +18,4 @@ pacman --noconfirm -S docker docker-compose
 systemctl enable docker
 
 # Other tools
-pacman --noconfirm -S traceroute wireshark-qt firefox
+pacman --noconfirm -S traceroute wireshark-qt firefox irssi
