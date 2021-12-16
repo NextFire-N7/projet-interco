@@ -47,7 +47,7 @@ To open a shell or execute any command one one of the container you can use `doc
 
 ```console
 $ cd /vagrant/
-$ docker compose as-router sh
+$ docker compose exec as-router sh
 /scripts #
 ```
 

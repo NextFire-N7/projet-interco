@@ -26,3 +26,5 @@ services:
       service: x11-forwarding
     build:
       target: client
+    cap_add:
+    - NET_ADMIN
