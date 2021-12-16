@@ -31,7 +31,7 @@ The project uses [Docker](https://www.docker.com) containers to virtualize all t
 
 Services (containers of a Compose project) and networks are all defined in the [docker-compose.yml](./docker-compose.yml) file. They use Docker images all defined in the [Dockerfile](./Dockerfile).
 
-At start, all containers using the defined base image (or one of its subimages) will run the `/scripts/init.sh` script.
+At start, all containers using the defined base image (or one of its subimages) will run the `/data/init.sh` script.
 
 ### Run/stop containers
 
@@ -48,7 +48,7 @@ To open a shell or execute any command one one of the container you can use `doc
 ```console
 $ cd /vagrant/
 $ docker compose exec as-router sh
-/scripts #
+/data #
 ```
 
 This will open a shell (`sh`) on the container associated with the `as-router` service in the [docker-compose.yml](./docker-compose.yml)).

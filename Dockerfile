@@ -1,6 +1,6 @@
 # base stage
 FROM alpine AS base
-RUN apk add --no-cache font-noto wireshark
+RUN apk add --no-cache font-noto wireshark firefox
 
 # router stage
 FROM base AS router
@@ -9,11 +9,11 @@ COPY docker/frr/daemons /etc/frr/daemons
 COPY docker/frr/docker-start /usr/lib/frr/docker-start
 COPY docker/frr/frr-save /usr/local/bin/frr-save
 RUN mkdir -p /run/frr && chown -R frr:frr /run/frr
-ENTRYPOINT /scripts/init.sh; exec /usr/lib/frr/docker-start
+ENTRYPOINT /data/init.sh; exec /usr/lib/frr/docker-start
 
 # client stage
 FROM base AS client
-RUN apk add --no-cache firefox dhclient
+RUN apk add --no-cache dhclient
 ENTRYPOINT /scripts/init.sh; exec sleep infinity
 
 # ISP box with dhcp

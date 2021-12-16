@@ -1,7 +1,7 @@
 #!/bin/ash
 
 # Restore saved config
-cp -R /scripts/frr/* /etc/frr/
+cp -R /data/frr/* /etc/frr/
 chown -R frr:frr /etc/frr/
 
 if [ -r "/lib/lsb/init-functions" ]; then

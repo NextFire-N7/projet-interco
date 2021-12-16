@@ -1,5 +1,5 @@
 #!/bin/sh
 set -x
 
-mkdir /scripts/frr/
-cp /etc/frr/zebra.conf /etc/frr/ospfd.conf /etc/frr/staticd.conf /scripts/frr/
+mkdir /data/frr/
+cp /etc/frr/zebra.conf /etc/frr/ospfd.conf /etc/frr/staticd.conf /data/frr/

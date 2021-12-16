@@ -4,7 +4,7 @@ services:
       file: ./docker-compose-common.yml
       service: router
     volumes:
-      - ./scripts/as-router:/scripts # `init.sh` location
+      - ./data/as-router:/data # `init.sh` location
     networks:
       # networks attached to the container
       as:
@@ -16,7 +16,7 @@ services:
       file: ./docker-compose-common.yml
       service: router
     volumes:
-      - ./scripts/isp-b-router:/scripts
+      - ./data/isp-b-router:/data
     networks:
       as:
         ipv4_address: 120.0.16.3
@@ -28,7 +28,7 @@ services:
       file: ./docker-compose-common.yml
       service: router
     volumes:
-      - ./scripts/b1-router:/scripts
+      - ./data/b1-router:/data
     networks:
       isp-b:
         ipv4_address: 120.0.24.3
@@ -38,7 +38,7 @@ services:
       file: ./docker-compose-common.yml
       service: router
     volumes:
-      - ./scripts/isp-c-router:/scripts
+      - ./data/isp-c-router:/data
     networks:
       as:
         ipv4_address: 120.0.16.4
@@ -52,7 +52,7 @@ services:
     build:
       target: box
     volumes:
-      - ./scripts/c1-router:/scripts
+      - ./data/c1-router:/data
     networks:
       isp-c:
         ipv4_address: 120.0.20.3
@@ -64,19 +64,19 @@ services:
       file: ./docker-compose-common.yml
       service: router
     volumes:
-      - ./scripts/c2-router:/scripts
+      - ./data/c2-router:/data
     networks:
       isp-c:
         ipv4_address: 120.0.20.4
       priv-2:
         ipv4_address: 192.168.1.254
-        
+
   client1:
     extends:
       file: ./docker-compose-common.yml
       service: client
     volumes:
-      - ./scripts/client1:/scripts
+      - ./data/client1:/data
     networks:
       - priv-1
 
@@ -93,12 +93,10 @@ networks:
     ipam:
       config:
         - subnet: 120.0.20.0/22
-
   priv-1:
     ipam:
       config:
         - subnet: 192.168.0.0/24
-
   priv-2:
     ipam:
       config:
