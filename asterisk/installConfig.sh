@@ -24,7 +24,7 @@ rm -rf asterisk-18-current.tar.gz
 echo "export PATH=$PATH:usr/sbin" >> ~/.bashrc
 
 # Pour ne pas à avoir à redémarrer
-source .bashrc
+source ~/.bashrc
 
 # On va installer Asterisk /!\ ATTENTION ICI LA VERSION PEUT CHANGER /!\
 cd asterisk-18.8.0/
