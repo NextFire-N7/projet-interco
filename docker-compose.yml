@@ -11,6 +11,32 @@ services:
         # `as` network defined in the `networks` section below
         ipv4_address: 120.0.16.2 # static IP
 
+  irc-server:
+    image: ergochat/ergo:latest
+    networks:
+      as:
+        ipv4_address: 120.0.16.10
+
+  matrix-server:
+    image: matrixdotorg/synapse:latest
+    environment:
+      - SYNAPSE_ENABLE_REGISTRATION=yes
+      - SYNAPSE_SERVER_NAME=AS1
+    # command: generate   # uncomment to generate config
+    # to register users: 
+    # docker compose exec matrix-server register_new_matrix_user http://localhost:8008 -c /data/homeserver.yaml
+    volumes:
+      - matrix-server:/data
+    networks:
+      as:
+        ipv4_address: 120.0.16.11
+
+  matrix-web:
+    image: vectorim/element-web:latest
+    networks:
+      as:
+        ipv4_address: 120.0.16.12
+
   isp-b-router:
     extends:
       file: ./docker-compose-common.yml
@@ -32,12 +58,6 @@ services:
     networks:
       isp-b:
         ipv4_address: 120.0.24.3
-
-  irc:
-    image: ergochat/ergo:latest
-    networks:
-      as:
-        ipv4_address: 120.0.16.10
 
   isp-c-router:
     extends:
@@ -90,3 +110,6 @@ networks:
     ipam:
       config:
         - subnet: 192.168.0.0/24
+
+volumes:
+  matrix-server:
