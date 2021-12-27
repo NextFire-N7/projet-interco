@@ -20,3 +20,10 @@ ENTRYPOINT /scripts/init.sh; exec sleep infinity
 FROM router AS box
 RUN apk add --no-cache dhcp
 COPY docker/dhcp/dhcpd.conf /etc/dhcp/dhcpd.conf
+
+
+# Clients Asterisk
+FROM debian AS asteriskClients
+  # Linphone est un logiciel de VoIP qui fonctionne comme Skype
+RUN apt install linphone
+
