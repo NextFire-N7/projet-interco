@@ -34,7 +34,7 @@ services:
         ipv4_address: 120.0.24.3
 
   irc:
-    image: ergochat/ergo
+    image: ergochat/ergo:latest
     networks:
       as:
         ipv4_address: 120.0.16.10

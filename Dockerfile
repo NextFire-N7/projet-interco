@@ -1,9 +1,9 @@
 # base stage on alpine
-FROM alpine AS alpine-base
+FROM alpine:3 AS alpine-base
 RUN apk add --no-cache font-noto wireshark
 
 # base stage on ubuntu
-FROM ubuntu AS ubuntu-base
+FROM ubuntu:focal AS ubuntu-base
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt update && apt install -y --no-install-recommends iproute2 wireshark firefox irssi
 
