@@ -85,6 +85,26 @@ services:
     networks:
       as:
         ipv4_address: 120.0.16.10
+        
+  # Clients Asterisk - manque le serveur... + Redondant avec client1 ?
+  clientAsterisk1:
+    extends:
+      file: ./docker-compose-common.yml
+      service: clientAsterisk
+    #volumes:
+    #  - 
+    networks:
+      - priv-1
+      
+  clientAsterisk2:
+    extends:
+      file: ./docker-compose-common.yml
+      service: clientAsterisk
+    #volumes:
+    #  -
+    networks:
+      - priv-1
+        
 
 networks:
   as:
