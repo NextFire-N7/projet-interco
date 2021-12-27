@@ -1,6 +1,11 @@
-# base stage
+# base stage on alpine
 FROM alpine AS alpine-base
-RUN apk add --no-cache font-noto wireshark firefox irssi
+RUN apk add --no-cache font-noto wireshark
+
+# base stage on ubuntu
+FROM ubuntu AS ubuntu-base
+ENV DEBIAN_FRONTEND=noninteractive
+RUN apt update && apt install -y --no-install-recommends iproute2 wireshark firefox irssi
 
 # router stage
 FROM alpine-base AS router
@@ -16,9 +21,7 @@ FROM router AS box
 RUN apk add --no-cache dhcp
 COPY docker/dhcp/dhcpd.conf /etc/dhcp/dhcpd.conf
 
-# Clients avec client Asterisk
-FROM ubuntu AS client
-ENV DEBIAN_FRONTEND=noninteractive
+FROM ubuntu-base AS client
 # Linphone est un logiciel de VoIP qui fonctionne comme Skype
-RUN apt update && apt install -y --no-install-recommends linphone
+RUN apt install -y --no-install-recommends linphone
 ENTRYPOINT /data/init.sh; exec sleep infinity
