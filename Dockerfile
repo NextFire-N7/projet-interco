@@ -25,5 +25,5 @@ COPY docker/dhcp/dhcpd.conf /etc/dhcp/dhcpd.conf
 # Clients Asterisk
 FROM debian AS asteriskClients
   # Linphone est un logiciel de VoIP qui fonctionne comme Skype
-RUN apt install linphone
+RUN apt update && apt upgrade --yes && apt install linphone
 
