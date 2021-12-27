@@ -33,6 +33,12 @@ services:
       isp-b:
         ipv4_address: 120.0.24.3
 
+  irc:
+    image: ergochat/ergo
+    networks:
+      as:
+        ipv4_address: 120.0.16.10
+
   isp-c-router:
     extends:
       file: ./docker-compose-common.yml
@@ -48,63 +54,24 @@ services:
   c1-router:
     extends:
       file: ./docker-compose-common.yml
-      service: router
-    build:
-      target: box
+      service: box
     volumes:
       - ./data/c1-router:/data
     networks:
       isp-c:
         ipv4_address: 120.0.20.3
       priv-1:
-        ipv4_address: 192.168.0.254
+        ipv4_address: 192.168.0.2
 
-  client1:
+  c1-client:
     extends:
       file: ./docker-compose-common.yml
       service: client
     volumes:
-      - ./data/client1:/data
+      - ./data/c1-client:/data
     networks:
-      - priv-1
-
-  c2-router:
-    extends:
-      file: ./docker-compose-common.yml
-      service: router
-    volumes:
-      - ./data/c2-router:/data
-    networks:
-      isp-c:
-        ipv4_address: 120.0.20.4
-      priv-2:
-        ipv4_address: 192.168.1.254
-
-  irc:
-    image: ergochat/ergo
-    networks:
-      as:
-        ipv4_address: 120.0.16.10
-        
-  # Clients Asterisk - manque le serveur... + Redondant avec client1 ?
-  clientAsterisk1:
-    extends:
-      file: ./docker-compose-common.yml
-      service: clientAsterisk
-    #volumes:
-    #  - 
-    networks:
-      - priv-1
-      
-  clientAsterisk2:
-    extends:
-      file: ./docker-compose-common.yml
-      service: clientAsterisk
-    #volumes:
-    #  -
-    networks:
-      - priv-1
-        
+      priv-1:
+        ipv4_address: 192.168.0.3
 
 networks:
   as:
@@ -123,7 +90,3 @@ networks:
     ipam:
       config:
         - subnet: 192.168.0.0/24
-  priv-2:
-    ipam:
-      config:
-        - subnet: 192.168.1.0/24

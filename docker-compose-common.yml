@@ -21,6 +21,12 @@ services:
       - NET_ADMIN # Perform various network-related operations.
       - SYS_ADMIN # Perform a range of system administration operations.
 
+  box:
+    extends:
+      service: router
+    build:
+      target: box
+
   client:
     extends:
       service: x11-forwarding
@@ -28,12 +34,3 @@ services:
       target: client
     cap_add:
       - NET_ADMIN
-  
-  # Config pour les clients Asterisk, x11-forwarding est nécessaire pour pouvoir ouvrir le logiciel VoIP
-  clientAsterisk:
-    extends:
-      service: x11-forwarding
-    build:
-      target: clientAsterisk
-      
-  
