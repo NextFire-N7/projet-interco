@@ -9,5 +9,5 @@ set -x
   # ip link set eth0 up
 
 # On lance le serveur
-rc-update add unbound
-rc-service unbound start
+  # rc-update add unbound
+  # rc-service unbound start
