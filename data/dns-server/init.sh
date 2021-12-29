@@ -7,3 +7,8 @@ ip flush dev eth0
 ip link set eth0 down
 ip addr add 120.0.16.21 dev eth0
 ip link set eth0 up
+
+# On lance le serveur
+systemctl enable unbound
+systemctl stop unbound
+systemctl start unbound
