@@ -69,7 +69,7 @@ services:
 
   matrix-web:
     image: vectorim/element-web:latest
-    entrypoint: sh -c 'ip r r default via 120.0.28.2 && exec nginx'
+    entrypoint: sh -c 'ip r r default via 120.0.28.2 && exec /docker-entrypoint.sh nginx -g "daemon off;"'
     cap_add:
       - NET_ADMIN
     networks:
