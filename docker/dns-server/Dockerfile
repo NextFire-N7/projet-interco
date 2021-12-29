@@ -1,5 +1,6 @@
-FROM base-alpine
-RUN apk add --no-cache unbound
+FROM alpine:3
+RUN apk add --no-cache unbound wireshark
+  # wireshark pour débug les datagrammes UDP qui arriveront (éventuellement)
 # Copie de la configuration
 COPY unbound.conf /etc/unbound/unbound.conf
 # On vérifie si la config est OK
