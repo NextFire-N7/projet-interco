@@ -17,7 +17,7 @@ services:
       # by default the root user in containers do not have all capacities
       - NET_ADMIN # Perform various network-related operations.
       - SYS_ADMIN # Perform a range of system administration operations.
-
+      
   box:
     extends:
       service: router
@@ -29,3 +29,11 @@ services:
     image: client
     cap_add:
       - NET_ADMIN
+
+  server:
+    # Pour wireshark
+    extends: x11-forwarding
+    cap_add:
+      # Pas sûr de ça
+      - NET_ADMIN
+    
