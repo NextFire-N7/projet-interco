@@ -3,7 +3,8 @@ services:
   as-router:
     extends:
       file: ./docker-compose-common.yml
-      service: router
+      service: base
+    image: router
     volumes:
       - ./data/as-router:/data # `init.sh` location
     networks:
@@ -16,7 +17,8 @@ services:
   entr-access-router:
     extends:
       file: ./docker-compose-common.yml
-      service: router
+      service: base
+    image: router
     volumes:
       - ./data/entr-access-router:/data
     networks:
@@ -29,7 +31,8 @@ services:
   entr1-router:
     extends:
       file: ./docker-compose-common.yml
-      service: router
+      service: base
+    image: router
     volumes:
       - ./data/entr1-router:/data
     networks:
@@ -41,15 +44,17 @@ services:
         ipv4_address: 120.0.29.2
 
   ### DMZ network ###
-  dns-server:
+  entr1-dns:
     extends:
       file: ./docker-compose-common.yml
-      service: server
+      service: base
+    image: dns-server
+    volumes:
+      - ./data/entr1-dns:/data
     networks:
       entr1-dmz:
-        ipv4_address: 120.0.28.21
-    
-  
+        ipv4_address: 120.0.28.5
+
   irc-server:
     image: ergochat/ergo:latest
     entrypoint: sh -c 'ip r r default via 120.0.28.2 && exec /ircd-bin/run.sh'
@@ -63,7 +68,8 @@ services:
     image: matrixdotorg/synapse:latest
     # to register users: 
     # docker compose exec matrix-server register_new_matrix_user http://localhost:8008 -c /data/homeserver.yaml
-    entrypoint: sh -c 'apt update && apt install -y --no-install-recommends iproute2 && ip r r default via 120.0.28.2 && exec /start.py'
+    entrypoint: sh -c 'apt update && apt install -y --no-install-recommends iproute2
+      && ip r r default via 120.0.28.2 && exec /start.py'
     environment:
       - SYNAPSE_SERVER_NAME=AS1
       - SYNAPSE_REPORT_STATS=yes
@@ -78,7 +84,8 @@ services:
 
   matrix-web:
     image: vectorim/element-web:latest
-    entrypoint: sh -c 'ip r r default via 120.0.28.2 && exec /docker-entrypoint.sh nginx -g "daemon off;"'
+    entrypoint: sh -c 'ip r r default via 120.0.28.2 && exec /docker-entrypoint.sh
+      nginx -g "daemon off;"'
     cap_add:
       - NET_ADMIN
     volumes:
@@ -91,7 +98,8 @@ services:
   entr1-client:
     extends:
       file: ./docker-compose-common.yml
-      service: client
+      service: base
+    image: client
     networks:
       entr1-intra:
         ipv4_address: 120.0.29.3
@@ -100,7 +108,8 @@ services:
   user-access-router:
     extends:
       file: ./docker-compose-common.yml
-      service: router
+      service: base
+    image: router
     volumes:
       - ./data/user-access-router:/data
     networks:
@@ -113,7 +122,8 @@ services:
   user1-box:
     extends:
       file: ./docker-compose-common.yml
-      service: box
+      service: base
+    image: box
     volumes:
       - ./data/user1-box:/data
     networks:
@@ -125,7 +135,8 @@ services:
   user1-client:
     extends:
       file: ./docker-compose-common.yml
-      service: client
+      service: base
+    image: client
     volumes:
       - ./data/user1-client:/data
     networks:
@@ -167,4 +178,4 @@ networks:
         - subnet: 192.168.0.0/24
 
 volumes:
-  matrix-server:
+  matrix-server: null
