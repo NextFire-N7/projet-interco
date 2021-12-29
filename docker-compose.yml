@@ -37,60 +37,60 @@ services:
       as:
         ipv4_address: 120.0.16.12
 
-  isp-b-router:
+  isp-entr-router:
     extends:
       file: ./docker-compose-common.yml
       service: router
     volumes:
-      - ./data/isp-b-router:/data
+      - ./data/isp-entr-router:/data
     networks:
       as:
         ipv4_address: 120.0.16.3
-      isp-b:
+      isp-entr:
         ipv4_address: 120.0.24.2
 
-  b1-router:
+  entr1-router:
     extends:
       file: ./docker-compose-common.yml
       service: router
     volumes:
-      - ./data/b1-router:/data
+      - ./data/entr1-router:/data
     networks:
-      isp-b:
+      isp-entr:
         ipv4_address: 120.0.24.3
 
-  isp-c-router:
+  isp-user-router:
     extends:
       file: ./docker-compose-common.yml
       service: router
     volumes:
-      - ./data/isp-c-router:/data
+      - ./data/isp-user-router:/data
     networks:
       as:
         ipv4_address: 120.0.16.4
-      isp-c:
+      isp-user:
         ipv4_address: 120.0.20.2
 
-  c1-router:
+  user1-router:
     extends:
       file: ./docker-compose-common.yml
       service: box
     volumes:
-      - ./data/c1-router:/data
+      - ./data/user1-router:/data
     networks:
-      isp-c:
+      isp-user:
         ipv4_address: 120.0.20.3
-      priv-1:
+      user1:
         ipv4_address: 192.168.0.2
 
-  c1-client:
+  user1-client:
     extends:
       file: ./docker-compose-common.yml
       service: client
     volumes:
-      - ./data/c1-client:/data
+      - ./data/user1-client:/data
     networks:
-      priv-1:
+      user1:
         ipv4_address: 192.168.0.3
 
 networks:
@@ -98,15 +98,15 @@ networks:
     ipam:
       config:
         - subnet: 120.0.16.0/22
-  isp-b:
+  isp-entr:
     ipam:
       config:
         - subnet: 120.0.24.0/21
-  isp-c:
+  isp-user:
     ipam:
       config:
         - subnet: 120.0.20.0/22
-  priv-1:
+  user1:
     ipam:
       config:
         - subnet: 192.168.0.0/24
