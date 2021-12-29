@@ -41,6 +41,15 @@ services:
         ipv4_address: 120.0.29.2
 
   ### DMZ network ###
+  dns-server:
+    extends:
+      file: ./docker-compose-common.yml
+      service: server
+    networks:
+      entr1-dmz:
+        ipv4_address: 120.0.28.21
+    
+  
   irc-server:
     image: ergochat/ergo:latest
     entrypoint: sh -c 'ip r r default via 120.0.28.2 && exec /ircd-bin/run.sh'
