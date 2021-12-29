@@ -1,4 +1,5 @@
 services:
+  ### AS core network ###
   as-router:
     extends:
       file: ./docker-compose-common.yml
@@ -11,11 +12,40 @@ services:
         # `as` network defined in the `networks` section below
         ipv4_address: 120.0.16.2 # static IP
 
+  ### Entreprises access network ###
+  entr-access-router:
+    extends:
+      file: ./docker-compose-common.yml
+      service: router
+    volumes:
+      - ./data/entr-access-router:/data
+    networks:
+      as:
+        ipv4_address: 120.0.16.3
+      entr-access:
+        ipv4_address: 120.0.24.2
+
+  ### Primary entreprise network ###
+  entr1-router:
+    extends:
+      file: ./docker-compose-common.yml
+      service: router
+    volumes:
+      - ./data/entr1-router:/data
+    networks:
+      entr-access:
+        ipv4_address: 120.0.24.3
+      entr1-dmz:
+        ipv4_address: 120.0.28.2
+      entr1-intra:
+        ipv4_address: 120.0.29.2
+
+  ### DMZ network ###
   irc-server:
     image: ergochat/ergo:latest
     networks:
-      as:
-        ipv4_address: 120.0.16.10
+      entr1-dmz:
+        ipv4_address: 120.0.28.10
 
   matrix-server:
     image: matrixdotorg/synapse:latest
@@ -28,53 +58,38 @@ services:
     volumes:
       - matrix-server:/data
     networks:
-      as:
-        ipv4_address: 120.0.16.11
+      entr1-dmz:
+        ipv4_address: 120.0.28.20
 
   matrix-web:
     image: vectorim/element-web:latest
     networks:
-      as:
-        ipv4_address: 120.0.16.12
-
-  isp-entr-router:
-    extends:
-      file: ./docker-compose-common.yml
-      service: router
-    volumes:
-      - ./data/isp-entr-router:/data
-    networks:
-      as:
-        ipv4_address: 120.0.16.3
-      isp-entr:
-        ipv4_address: 120.0.24.2
-
-  entr1-router:
-    extends:
-      file: ./docker-compose-common.yml
-      service: router
-    volumes:
-      - ./data/entr1-router:/data
-    networks:
-      isp-entr:
-        ipv4_address: 120.0.24.3
       entr1-dmz:
-        ipv4_address: 120.0.28.2
-      entr1-intra:
-        ipv4_address: 120.0.29.2
+        ipv4_address: 120.0.28.21
 
-  isp-user-router:
+  ### Intranet network ###
+  entr1-client:
+    extends:
+      file: ./docker-compose-common.yml
+      service: client
+    networks:
+      entr1-intra:
+        ipv4_address: 120.0.29.3
+
+  ### Clients access network ###
+  user-access-router:
     extends:
       file: ./docker-compose-common.yml
       service: router
     volumes:
-      - ./data/isp-user-router:/data
+      - ./data/user-access-router:/data
     networks:
       as:
         ipv4_address: 120.0.16.4
-      isp-user:
+      user-access:
         ipv4_address: 120.0.20.2
 
+  ### User 1 home network ###
   user1-router:
     extends:
       file: ./docker-compose-common.yml
@@ -82,7 +97,7 @@ services:
     volumes:
       - ./data/user1-router:/data
     networks:
-      isp-user:
+      user-access:
         ipv4_address: 120.0.20.3
       user1:
         ipv4_address: 192.168.0.2
@@ -102,10 +117,10 @@ networks:
     ipam:
       config:
         - subnet: 120.0.16.0/22
-  isp-entr:
+  entr-access:
     ipam:
       config:
-        - subnet: 120.0.24.0/21
+        - subnet: 120.0.24.0/22
   # Entreprises:
   # 120.0.28.0/22
   # |- 120.0.28.0/23  Entreprise 1
@@ -122,7 +137,7 @@ networks:
     ipam:
       config:
         - subnet: 120.0.29.0/24
-  isp-user:
+  user-access:
     ipam:
       config:
         - subnet: 120.0.20.0/22
@@ -132,4 +147,4 @@ networks:
         - subnet: 192.168.0.0/24
 
 volumes:
-  matrix-server:
+  matrix-server: null
