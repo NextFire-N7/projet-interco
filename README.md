@@ -2,7 +2,7 @@
 
 ## Getting Started
 
-Launching the project essentially consists in `docker compose up` on a Linux desktop.
+Launching the project essentially consists in `make && docker compose up` on a Linux desktop.
 
 A [`Vagrantfile`](./Vagrantfile) is provided to easily setup an Arch Linux VM with LXQt and Docker and mounting the project inside it with [Vagrant](https://www.vagrantup.com).
 
@@ -29,7 +29,7 @@ The project uses [Docker](https://www.docker.com) containers to virtualize all t
 
 ### Define containers
 
-Services (containers of a Compose project) and networks are all defined in the [docker-compose.yml](./docker-compose.yml) file. They use Docker images all defined in the [Dockerfile](./Dockerfile).
+Services (containers of a Compose project) and networks are all defined in the [docker-compose.yml](./docker-compose.yml) file. They use Docker images all defined in Dockerfiles in the subdirectories of [docker/](./docker/) and built with the [Makefile](./Makefile).
 
 At start, all containers using the defined base image (or one of its subimages) will run the `/data/init.sh` script.
 

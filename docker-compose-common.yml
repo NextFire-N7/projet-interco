@@ -12,10 +12,7 @@ services:
   router:
     extends:
       service: x11-forwarding
-    build:
-      # use a custom image
-      # by default look for `./Dockerfile`
-      target: router # use the `router` stage
+    image: router
     cap_add:
       # by default the root user in containers do not have all capacities
       - NET_ADMIN # Perform various network-related operations.
@@ -24,13 +21,11 @@ services:
   box:
     extends:
       service: router
-    build:
-      target: box
+    image: box
 
   client:
     extends:
       service: x11-forwarding
-    build:
-      target: client
+    image: client
     cap_add:
       - NET_ADMIN

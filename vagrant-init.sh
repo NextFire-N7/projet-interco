@@ -16,6 +16,7 @@ echo 'xhost + &> /dev/null' >> /home/vagrant/.bashrc
 # Docker install
 pacman --noconfirm -S docker docker-compose
 systemctl enable docker
+usermod -aG docker vagrant
 
 # Other tools
-pacman --noconfirm -S traceroute wireshark-qt firefox irssi
+pacman --noconfirm -S make traceroute wireshark-qt firefox irssi
