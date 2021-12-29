@@ -1,7 +1,7 @@
 services:
   base:
     # service name
-    # enable X11 forwarding + cap adds
+    # enable X11 forwarding + caps adds
     environment:
       # environment of the container
       - DISPLAY=${DISPLAY:-:0} # pass the host `$DISPLAY` var, defaults to `:0`

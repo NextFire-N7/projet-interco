@@ -6,12 +6,21 @@ services:
       service: base
     image: router
     volumes:
-      - ./data/as-router:/data # `init.sh` location
+      - ./data/as-router:/data
     networks:
-      # networks attached to the container
       as:
-        # `as` network defined in the `networks` section below
-        ipv4_address: 120.0.16.2 # static IP
+        ipv4_address: 120.0.16.2
+
+  as-dns:
+    extends:
+      file: ./docker-compose-common.yml
+      service: base
+    image: dns-server
+    volumes:
+      - ./data/as-dns:/data
+    networks:
+      as:
+        ipv4_address: 120.0.16.10
 
   ### Entreprises access network ###
   entr-access-router:
@@ -53,7 +62,7 @@ services:
       - ./data/entr1-dns:/data
     networks:
       entr1-dmz:
-        ipv4_address: 120.0.28.5
+        ipv4_address: 120.0.28.10
 
   irc-server:
     image: ergochat/ergo:latest
@@ -62,7 +71,7 @@ services:
       - NET_ADMIN
     networks:
       entr1-dmz:
-        ipv4_address: 120.0.28.10
+        ipv4_address: 120.0.28.15
 
   matrix-server:
     image: matrixdotorg/synapse:latest
@@ -158,8 +167,6 @@ networks:
   #   |- 120.0.28.0/24  DMZ
   #   |- 120.0.29.0/24  Intranet
   # |- 120.0.30.0/23  Entreprise 2
-  #   |- 120.0.30.0/24  DMZ
-  #   |- 120.0.31.0/24  Intranet
   entr1-dmz:
     ipam:
       config:
