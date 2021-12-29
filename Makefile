@@ -8,6 +8,7 @@ all: router box client dns-server
 router: base-alpine
 box: router
 client: base-ubuntu
+dns-server: base-alpine
 
 # Generic rule
 %:
