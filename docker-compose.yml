@@ -58,6 +58,10 @@ services:
     networks:
       isp-entr:
         ipv4_address: 120.0.24.3
+      entr1-dmz:
+        ipv4_address: 120.0.28.2
+      entr1-intra:
+        ipv4_address: 120.0.29.2
 
   isp-user-router:
     extends:
@@ -102,6 +106,22 @@ networks:
     ipam:
       config:
         - subnet: 120.0.24.0/21
+  # Entreprises:
+  # 120.0.28.0/22
+  # |- 120.0.28.0/23  Entreprise 1
+  #   |- 120.0.28.0/24  DMZ
+  #   |- 120.0.29.0/24  Intranet
+  # |- 120.0.30.0/23  Entreprise 2
+  #   |- 120.0.30.0/24  DMZ
+  #   |- 120.0.31.0/24  Intranet
+  entr1-dmz:
+    ipam:
+      config:
+        - subnet: 120.0.28.0/24
+  entr1-intra:
+    ipam:
+      config:
+        - subnet: 120.0.29.0/24
   isp-user:
     ipam:
       config:
