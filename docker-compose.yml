@@ -52,17 +52,17 @@ services:
 
   matrix-server:
     image: matrixdotorg/synapse:latest
+    # to register users: 
+    # docker compose exec matrix-server register_new_matrix_user http://localhost:8008 -c /data/homeserver.yaml
     entrypoint: sh -c 'apt update && apt install -y --no-install-recommends iproute2 && ip r r default via 120.0.28.2 && exec /start.py'
     environment:
       - SYNAPSE_SERVER_NAME=AS1
       - SYNAPSE_REPORT_STATS=yes
-    # command: generate   # uncomment to generate config
-    # to register users: 
-    # docker compose exec matrix-server register_new_matrix_user http://localhost:8008 -c /data/homeserver.yaml
     cap_add:
       - NET_ADMIN
     volumes:
       - matrix-server:/data
+      - ./data/matrix-server/homeserver.yaml:/data/homeserver.yaml
     networks:
       entr1-dmz:
         ipv4_address: 120.0.28.20
@@ -72,6 +72,8 @@ services:
     entrypoint: sh -c 'ip r r default via 120.0.28.2 && exec /docker-entrypoint.sh nginx -g "daemon off;"'
     cap_add:
       - NET_ADMIN
+    volumes:
+      - ./data/matrix-web/config.json:/app/config.json
     networks:
       entr1-dmz:
         ipv4_address: 120.0.28.21
@@ -156,4 +158,4 @@ networks:
         - subnet: 192.168.0.0/24
 
 volumes:
-  matrix-server: null
+  matrix-server:
