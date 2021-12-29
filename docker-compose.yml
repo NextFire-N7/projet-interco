@@ -43,18 +43,24 @@ services:
   ### DMZ network ###
   irc-server:
     image: ergochat/ergo:latest
+    entrypoint: sh -c 'ip r r default via 120.0.28.2 && exec /ircd-bin/run.sh'
+    cap_add:
+      - NET_ADMIN
     networks:
       entr1-dmz:
         ipv4_address: 120.0.28.10
 
   matrix-server:
     image: matrixdotorg/synapse:latest
+    entrypoint: sh -c 'apt update && apt install -y --no-install-recommends iproute2 && ip r r default via 120.0.28.2 && exec /start.py'
     environment:
       - SYNAPSE_SERVER_NAME=AS1
       - SYNAPSE_REPORT_STATS=yes
     # command: generate   # uncomment to generate config
     # to register users: 
     # docker compose exec matrix-server register_new_matrix_user http://localhost:8008 -c /data/homeserver.yaml
+    cap_add:
+      - NET_ADMIN
     volumes:
       - matrix-server:/data
     networks:
@@ -63,6 +69,9 @@ services:
 
   matrix-web:
     image: vectorim/element-web:latest
+    entrypoint: sh -c 'ip r r default via 120.0.28.2 && exec nginx'
+    cap_add:
+      - NET_ADMIN
     networks:
       entr1-dmz:
         ipv4_address: 120.0.28.21
