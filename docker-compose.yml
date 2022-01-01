@@ -127,6 +127,8 @@ services:
       file: ./docker-compose-common.yml
       service: base
     image: client
+    volumes:
+      - ./data/entr1-client:/data
     networks:
       entr1-intra:
         ipv4_address: 120.0.29.3
