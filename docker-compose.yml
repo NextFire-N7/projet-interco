@@ -67,8 +67,7 @@ services:
   irc-server:
     image: ergochat/ergo:latest
     entrypoint: sh -c 'ip r r default via 120.0.28.2 && exec /ircd-bin/run.sh'
-    cap_add:
-      - NET_ADMIN
+    privileged: true
     networks:
       entr1-dmz:
         ipv4_address: 120.0.28.15
@@ -83,8 +82,7 @@ services:
       - SYNAPSE_SERVER_NAME=AS1
       - SYNAPSE_REPORT_STATS=no
       - SYNAPSE_CONFIG_PATH=/data-host/homeserver.yaml
-    cap_add:
-      - NET_ADMIN
+    privileged: true
     volumes:
       - ./data/matrix-server:/data-host
     networks:
@@ -94,8 +92,7 @@ services:
   matrix-web:
     image: vectorim/element-web:latest
     entrypoint: sh -c 'ip r r default via 120.0.28.2 && exec /docker-entrypoint.sh nginx -g "daemon off;"'
-    cap_add:
-      - NET_ADMIN
+    privileged: true
     volumes:
       - ./data/matrix-web/config.json:/app/config.json
     networks:
@@ -103,6 +100,28 @@ services:
         ipv4_address: 120.0.28.21
 
   ### Intranet network ###
+  entr1-ovpn:
+    image: kylemanna/openvpn:latest
+    environment:
+      - DEBUG=1
+    privileged: true
+    volumes:
+      - ./data/entr1-ovpn:/etc/openvpn
+    networks:
+      entr1-intra:
+        ipv4_address: 120.0.29.10
+
+  entr1-ovpn-monitor:
+    image: ruimarinho/openvpn-monitor:latest
+    environment:
+      - OPENVPNMONITOR_SITES_0_HOST=120.0.29.10
+      - OPENVPNMONITOR_SITES_0_NAME=entr1
+      - OPENVPNMONITOR_SITES_0_PORT=5555
+      - OPENVPNMONITOR_SITES_0_SHOWDISCONNECT=True
+    networks:
+      entr1-intra:
+        ipv4_address: 120.0.29.11
+
   entr1-client:
     extends:
       file: ./docker-compose-common.yml
