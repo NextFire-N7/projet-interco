@@ -8,7 +8,4 @@ services:
     volumes:
       # volumes mount, syntax is `<path on host>:<path on container>`
       - /tmp/.X11-unix:/tmp/.X11-unix # X11 socket
-    cap_add:
-      # by default the root user in containers do not have all capacities
-      - NET_ADMIN # Perform various network-related operations.
-      - SYS_ADMIN # Perform a range of system administration operations.
+    privileged: true # run in privileged mode
