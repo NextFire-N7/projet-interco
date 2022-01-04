@@ -78,7 +78,7 @@ Vagrant.configure("2") do |config|
 
   config.vm.define "as_main" do |as_main|
     as_main.vm.network "private_network", virtualbox__intnet: "as_core", auto_config: false
-    # as_main.vm.network "public_network"
+    as_main.vm.network "public_network", auto_config: false # AS interco interface
     as_main.vm.provision "shell", inline: "cd /vagrant/machines/as_main && ./init.sh"
   end
 

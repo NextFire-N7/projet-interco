@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 set -x
 
 # Update
@@ -14,7 +14,6 @@ echo 'setxkbmap fr; exec startlxqt' > /home/vagrant/.xinitrc
 # Docker
 pacman --noconfirm -S docker docker-compose
 systemctl enable docker
-usermod -aG docker vagrant
 
 # Other tools
 pacman --noconfirm -S wireshark-qt
