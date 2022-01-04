@@ -1,0 +1,30 @@
+services:
+  unbound:
+    image: klutchell/unbound
+    volumes:
+      - ./unbound:/etc/unbound
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+
+  irc-server:
+    image: ergochat/ergo:latest
+    ports:
+      - "6667:6667"
+      - "6697:6697"
+
+  matrix-server:
+    image: matrixdotorg/synapse:latest
+    environment:
+      - SYNAPSE_CONFIG_PATH=/config/homeserver.yaml
+    volumes:
+      - ./synapse:/config
+    ports:
+      - "8008:8008"
+
+  matrix-web:
+    image: vectorim/element-web:latest
+    volumes:
+      - ./elementary/config.json:/app/config.json
+    ports:
+      - "80:80"

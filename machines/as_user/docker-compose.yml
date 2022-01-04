@@ -1,0 +1,7 @@
+services:
+  frr:
+    image: frrouting/frr:latest
+    privileged: true
+    network_mode: host
+    volumes:
+      - ./frr:/etc/frr

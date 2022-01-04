@@ -1,0 +1,15 @@
+services:
+  frr:
+    image: frrouting/frr:latest
+    privileged: true
+    network_mode: host
+    volumes:
+      - ./frr:/etc/frr
+
+  # unbound:
+  #   image: klutchell/unbound
+  #   volumes:
+  #     - ./unbound:/etc/unbound
+  #   ports:
+  #     - "53:53/tcp"
+  #     - "53:53/udp"

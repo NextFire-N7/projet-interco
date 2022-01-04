@@ -1,0 +1,14 @@
+services:
+  frr:
+    image: frrouting/frr:latest
+    privileged: true
+    network_mode: host
+    volumes:
+      - ./frr:/etc/frr
+
+  dhcpd:
+    image: networkboot/dhcpd:latest
+    command: eth2
+    network_mode: host
+    volumes:
+      - ./dhcp:/data

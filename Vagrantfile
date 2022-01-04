@@ -60,8 +60,8 @@ Vagrant.configure("2") do |config|
   # View the documentation for the provider you are using for more
   # information on available options.
   config.vm.provider "virtualbox" do |vb|
-    vb.gui = true
-    vb.memory = "2048"
+    vb.cpus = "1"
+    vb.memory = "256"
     vb.customize ['modifyvm', :id, '--vram', '128']
     vb.customize ['modifyvm', :id, '--graphicscontroller', 'vmsvga']
     vb.customize ['modifyvm', :id, '--accelerate3d', 'on']
@@ -75,4 +75,50 @@ Vagrant.configure("2") do |config|
   #   apt-get install -y apache2
   # SHELL
   config.vm.provision "shell", inline: "cd /vagrant && ./vagrant-init.sh", reboot: true
+
+  config.vm.define "as_main" do |as_main|
+    as_main.vm.network "private_network", virtualbox__intnet: "as_core", auto_config: false
+    # as_main.vm.network "public_network"
+    as_main.vm.provision "shell", inline: "cd /vagrant/machines/as_main && ./init.sh"
+  end
+
+  config.vm.define "as_user" do |as_user|
+    as_user.vm.network "private_network", virtualbox__intnet: "as_core", auto_config: false
+    as_user.vm.network "private_network", virtualbox__intnet: "user_access", auto_config: false
+    as_user.vm.provision "shell", inline: "cd /vagrant/machines/as_user && ./init.sh"
+  end
+  
+  config.vm.define "as_entr" do |as_entr|
+    as_entr.vm.network "private_network", virtualbox__intnet: "as_core", auto_config: false
+    as_entr.vm.network "private_network", virtualbox__intnet: "entr_access", auto_config: false
+    as_entr.vm.provision "shell", inline: "cd /vagrant/machines/as_entr && ./init.sh"
+  end
+
+  config.vm.define "box" do |box|
+    box.vm.network "private_network", virtualbox__intnet: "user_access", auto_config: false
+    box.vm.network "private_network", virtualbox__intnet: "client_nat", auto_config: false
+    box.vm.provision "shell", inline: "cd /vagrant/machines/box && ./init.sh"
+  end
+
+  config.vm.define "client" do |client|
+    client.vm.network "private_network", virtualbox__intnet: "client_nat", auto_config: false
+    client.vm.provision "shell", inline: "cd /vagrant/machines/client && ./init.sh"
+  end
+
+  config.vm.define "entr_router" do |entr_router|
+    entr_router.vm.network "private_network", virtualbox__intnet: "entr_access", auto_config: false
+    entr_router.vm.network "private_network", virtualbox__intnet: "entr_dmz", auto_config: false
+    entr_router.vm.network "private_network", virtualbox__intnet: "entr_intra", auto_config: false
+    entr_router.vm.provision "shell", inline: "cd /vagrant/machines/entr_router && ./init.sh"
+  end
+
+  config.vm.define "entr_dmz" do |entr_dmz|
+    entr_dmz.vm.network "private_network", virtualbox__intnet: "entr_dmz", auto_config: false
+    entr_dmz.vm.provision "shell", inline: "cd /vagrant/machines/entr_dmz && ./init.sh"
+  end
+
+  config.vm.define "entr_intra" do |entr_intra|
+    entr_intra.vm.network "private_network", virtualbox__intnet: "entr_intra", auto_config: false
+    entr_intra.vm.provision "shell", inline: "cd /vagrant/machines/entr_intra && ./init.sh"
+  end
 end
