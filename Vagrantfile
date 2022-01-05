@@ -79,46 +79,46 @@ Vagrant.configure("2") do |config|
   config.vm.define "as_main" do |as_main|
     as_main.vm.network "private_network", virtualbox__intnet: "as_core", auto_config: false
     #as_main.vm.network "public_network", auto_config: false # AS interco interface
-    as_main.vm.provision "shell", inline: "cd /vagrant/machines/as_main && ./init.sh"
+    as_main.vm.provision "shell", inline: "cd /vagrant/machines/as_main && ./init.sh", run: "always"
   end
 
   config.vm.define "as_user" do |as_user|
     as_user.vm.network "private_network", virtualbox__intnet: "as_core", auto_config: false
     as_user.vm.network "private_network", virtualbox__intnet: "user_access", auto_config: false
-    as_user.vm.provision "shell", inline: "cd /vagrant/machines/as_user && ./init.sh"
+    as_user.vm.provision "shell", inline: "cd /vagrant/machines/as_user && ./init.sh", run: "always"
   end
   
   config.vm.define "as_entr" do |as_entr|
     as_entr.vm.network "private_network", virtualbox__intnet: "as_core", auto_config: false
     as_entr.vm.network "private_network", virtualbox__intnet: "entr_access", auto_config: false
-    as_entr.vm.provision "shell", inline: "cd /vagrant/machines/as_entr && ./init.sh"
+    as_entr.vm.provision "shell", inline: "cd /vagrant/machines/as_entr && ./init.sh", run: "always"
   end
 
   config.vm.define "box" do |box|
     box.vm.network "private_network", virtualbox__intnet: "user_access", auto_config: false
     box.vm.network "private_network", virtualbox__intnet: "client_nat", auto_config: false
-    box.vm.provision "shell", inline: "cd /vagrant/machines/box && ./init.sh"
+    box.vm.provision "shell", inline: "cd /vagrant/machines/box && ./init.sh", run: "always"
   end
 
   config.vm.define "client" do |client|
     client.vm.network "private_network", virtualbox__intnet: "client_nat", auto_config: false
-    client.vm.provision "shell", inline: "cd /vagrant/machines/client && ./init.sh"
+    client.vm.provision "shell", inline: "cd /vagrant/machines/client && ./init.sh", run: "always"
   end
 
   config.vm.define "entr_router" do |entr_router|
     entr_router.vm.network "private_network", virtualbox__intnet: "entr_access", auto_config: false
     entr_router.vm.network "private_network", virtualbox__intnet: "entr_dmz", auto_config: false
     entr_router.vm.network "private_network", virtualbox__intnet: "entr_intra", auto_config: false
-    entr_router.vm.provision "shell", inline: "cd /vagrant/machines/entr_router && ./init.sh"
+    entr_router.vm.provision "shell", inline: "cd /vagrant/machines/entr_router && ./init.sh", run: "always"
   end
 
   config.vm.define "entr_dmz" do |entr_dmz|
     entr_dmz.vm.network "private_network", virtualbox__intnet: "entr_dmz", auto_config: false
-    entr_dmz.vm.provision "shell", inline: "cd /vagrant/machines/entr_dmz && ./init.sh"
+    entr_dmz.vm.provision "shell", inline: "cd /vagrant/machines/entr_dmz && ./init.sh", run: "always"
   end
 
   config.vm.define "entr_intra" do |entr_intra|
     entr_intra.vm.network "private_network", virtualbox__intnet: "entr_intra", auto_config: false
-    entr_intra.vm.provision "shell", inline: "cd /vagrant/machines/entr_intra && ./init.sh"
+    entr_intra.vm.provision "shell", inline: "cd /vagrant/machines/entr_intra && ./init.sh", run: "always"
   end
 end
