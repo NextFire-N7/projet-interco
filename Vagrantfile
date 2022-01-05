@@ -61,7 +61,7 @@ Vagrant.configure("2") do |config|
   # information on available options.
   config.vm.provider "virtualbox" do |vb|
     vb.cpus = "1"
-    vb.memory = "256"
+    vb.memory = "512"
     vb.customize ['modifyvm', :id, '--vram', '128']
     vb.customize ['modifyvm', :id, '--graphicscontroller', 'vmsvga']
     vb.customize ['modifyvm', :id, '--accelerate3d', 'on']

@@ -9,4 +9,4 @@ ip link set eth2 up
 ip address flush dev eth2
 ip address add 192.168.0.1/24 dev eth2
 
-docker compose up -d --force-recreate --remove-orphans
+docker-compose up -d --force-recreate --remove-orphans
