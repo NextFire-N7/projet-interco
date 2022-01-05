@@ -4,8 +4,7 @@ services:
     volumes:
       - ./unbound:/etc/unbound
     ports:
-      - "53:53/tcp"
-      - "53:53/udp"
+      - "5353:53"
 
   irc-server:
     image: ergochat/ergo:latest
