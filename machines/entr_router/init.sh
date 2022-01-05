@@ -13,4 +13,4 @@ ip link set eth3 up
 ip address flush dev eth3
 ip address add 120.0.29.1/24 dev eth3
 
-docker-compose up -d --force-recreate --remove-orphans
+docker compose up -d --force-recreate --remove-orphans
