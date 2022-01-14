@@ -23,13 +23,13 @@ services:
         ipv4_address: 120.0.16.10
 
   ### Entreprises access network ###
-  entr-access-router:
+  entr-access:
     extends:
       file: ./docker-compose-common.yml
       service: base
     image: router
     volumes:
-      - ./data/entr-access-router:/data
+      - ./data/entr-access:/data
     networks:
       as:
         ipv4_address: 120.0.16.3
@@ -139,13 +139,13 @@ services:
         ipv4_address: 120.0.29.3
 
   ### Clients access network ###
-  user-access-router:
+  user-access:
     extends:
       file: ./docker-compose-common.yml
       service: base
     image: router
     volumes:
-      - ./data/user-access-router:/data
+      - ./data/user-access:/data
     networks:
       as:
         ipv4_address: 120.0.16.4
