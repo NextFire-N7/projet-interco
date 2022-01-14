@@ -203,3 +203,15 @@ networks:
     ipam:
       config:
         - subnet: 192.168.0.0/24
+        
+  # OPENVPN SERVER A revoir
+openvpn:
+    image: "kylemanna/openvpn:latest"
+    container_name: openvpn
+    ports:
+        - "1194:1194/udp"
+    volumes:
+        - "/home/docker/openvpn/data:/etc/openvpn"
+    cap_add:
+        - NET_ADMIN
+    restart: always
