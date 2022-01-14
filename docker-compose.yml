@@ -132,6 +132,7 @@ services:
       file: ./docker-compose-common.yml
       service: base
     image: client
+    dns: 120.0.28.10
     volumes:
       - ./data/entr1-client:/data
     networks:
@@ -171,6 +172,7 @@ services:
       file: ./docker-compose-common.yml
       service: base
     image: client
+    dns: 120.0.16.10
     volumes:
       - ./data/user1-client:/data
     networks:
