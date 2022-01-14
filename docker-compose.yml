@@ -76,7 +76,8 @@ services:
     image: matrixdotorg/synapse:latest
     # to register users:
     # docker compose exec matrix-server register_new_matrix_user http://localhost:8008 -c /data/homeserver.yaml
-    entrypoint: sh -c 'apt update && apt install -y --no-install-recommends iproute2 && ip r r default via 120.0.28.2 && /start.py generate && exec /start.py'
+    entrypoint: sh -c 'apt update && apt install -y --no-install-recommends iproute2
+      && ip r r default via 120.0.28.2 && /start.py generate && exec /start.py'
     command: generate
     environment:
       - SYNAPSE_SERVER_NAME=AS1
@@ -91,7 +92,8 @@ services:
 
   matrix-web:
     image: vectorim/element-web:latest
-    entrypoint: sh -c 'ip r r default via 120.0.28.2 && exec /docker-entrypoint.sh nginx -g "daemon off;"'
+    entrypoint: sh -c 'ip r r default via 120.0.28.2 && exec /docker-entrypoint.sh
+      nginx -g "daemon off;"'
     privileged: true
     volumes:
       - ./data/matrix-web/config.json:/app/config.json
@@ -102,6 +104,7 @@ services:
   ### Intranet network ###
   entr1-ovpn:
     image: kylemanna/openvpn:latest
+    entrypoint: sh -c 'ip r r default via 120.0.29.2 && exec ovpn_run'
     environment:
       - DEBUG=1
     privileged: true
@@ -118,6 +121,8 @@ services:
       - OPENVPNMONITOR_SITES_0_NAME=entr1
       - OPENVPNMONITOR_SITES_0_PORT=5555
       - OPENVPNMONITOR_SITES_0_SHOWDISCONNECT=True
+    ports:
+      - "6980:80"
     networks:
       entr1-intra:
         ipv4_address: 120.0.29.11
@@ -181,12 +186,6 @@ networks:
     ipam:
       config:
         - subnet: 120.0.24.0/22
-  # Entreprises:
-  # 120.0.28.0/22
-  # |- 120.0.28.0/23  Entreprise 1
-  #   |- 120.0.28.0/24  DMZ
-  #   |- 120.0.29.0/24  Intranet
-  # |- 120.0.30.0/23  Entreprise 2
   entr1-dmz:
     ipam:
       config:
@@ -203,15 +202,3 @@ networks:
     ipam:
       config:
         - subnet: 192.168.0.0/24
-        
-  # OPENVPN SERVER A revoir
-openvpn:
-    image: "kylemanna/openvpn:latest"
-    container_name: openvpn
-    ports:
-        - "1194:1194/udp"
-    volumes:
-        - "/home/docker/openvpn/data:/etc/openvpn"
-    cap_add:
-        - NET_ADMIN
-    restart: always
