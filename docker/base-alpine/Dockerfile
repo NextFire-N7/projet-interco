@@ -1,2 +1,2 @@
 FROM alpine:3
-RUN apk add --no-cache font-noto wireshark firefox
+RUN apk add --no-cache font-noto wireshark
