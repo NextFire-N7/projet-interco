@@ -100,6 +100,24 @@ services:
     networks:
       entr1-dmz:
         ipv4_address: 120.0.28.21
+  
+  # A RELIRE SVP
+  # LE SERVEUR DOIT ÊTRE UNE UBUNTU
+  # IPv4 120.0.28.28 (non-pris normalement)
+  # LES FICHIERS DE CONFIG DOIVENT ÊTRE MONTABLES AINSI
+  # QUE LE SCRIPT 'asteriskConfig.sh' dans /docker/asterisk
+  srv-asterisk:
+    extends:
+      file: ./docker-compose-common.yml
+      service: base
+    image: base-ubuntu
+    volumes:
+      - ./data/asterisk:/data
+    networks:
+      entr1-dmz:
+        ipv4_address: 120.0.28.28
+    
+      
 
   ### Intranet network ###
   entr1-ovpn:
