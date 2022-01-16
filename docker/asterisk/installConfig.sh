@@ -27,7 +27,8 @@ echo "export PATH=$PATH:usr/sbin" >> ~/.bashrc
 source ~/.bashrc
 
 # On va installer Asterisk /!\ ATTENTION ICI LA VERSION PEUT CHANGER /!\
-cd asterisk-18.8.0/
+# La version a changé donc j'ai modifié ici
+cd asterisk-18.9.0/
 ./configure --with-jansson-bundled
 make && make all && make install
 
