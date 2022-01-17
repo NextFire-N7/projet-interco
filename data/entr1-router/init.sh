@@ -9,7 +9,7 @@ iptables --policy OUTPUT DROP
 iptables -t nat -p udp --dport 53 --sport 53 -j ACCEPT
 iptables -A INPUT -m state -state RELATED,ESTABLISHED -j ACCEPT
 iptables -A OUTPUT -m state -state RELATED,ESTABLISHED -j ACCEPT
-iptables -A OUTPUT -p tcp --dport 80 -j ACCEPT
-iptables -A OUTPUT -p tcp --dport 443 -j ACCEPT
+iptables -t nat -p tcp --dport 80 -j ACCEPT
+iptables -t nat -p tcp --dport 443 -j ACCEPT
 iptables -t nat -p udp --dport 1194 -j ACCEPT
 iptables -t nat -p sip -j ACCEPT
