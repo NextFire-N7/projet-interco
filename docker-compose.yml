@@ -110,7 +110,7 @@ services:
   # QUE LE SCRIPT 'asteriskConfig.sh' dans /docker/asterisk
   srv-asterisk:
     image: asterisk
-    entrypoint: sh -c 'ip r r default via 120.0.28.2 && exec asterisk -rvvvvvvvvv'
+    entrypoint: sh -c 'ip r r default via 120.0.28.2 && exec asterisk -cv'
     privileged: true
     volumes:
       - ./data/asterisk:/etc/asterisk
