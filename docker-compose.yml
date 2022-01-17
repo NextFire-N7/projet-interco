@@ -76,7 +76,8 @@ services:
     image: matrixdotorg/synapse:latest
     # to register users:
     # docker compose exec matrix-server register_new_matrix_user http://localhost:8008 -c /data/homeserver.yaml
-    entrypoint: sh -c 'apt update && apt install -y --no-install-recommends iproute2
+    entrypoint:
+      sh -c 'apt update && apt install -y --no-install-recommends iproute2
       && ip r r default via 120.0.28.2 && /start.py generate && exec /start.py'
     command: generate
     environment:
@@ -92,7 +93,8 @@ services:
 
   matrix-web:
     image: vectorim/element-web:latest
-    entrypoint: sh -c 'ip r r default via 120.0.28.2 && exec /docker-entrypoint.sh
+    entrypoint:
+      sh -c 'ip r r default via 120.0.28.2 && exec /docker-entrypoint.sh
       nginx -g "daemon off;"'
     privileged: true
     volumes:
@@ -100,24 +102,20 @@ services:
     networks:
       entr1-dmz:
         ipv4_address: 120.0.28.21
-  
+
   # A RELIRE SVP
   # LE SERVEUR DOIT ÊTRE UNE UBUNTU
   # IPv4 120.0.28.28 (non-pris normalement)
   # LES FICHIERS DE CONFIG DOIVENT ÊTRE MONTABLES AINSI
   # QUE LE SCRIPT 'asteriskConfig.sh' dans /docker/asterisk
   srv-asterisk:
-    extends:
-      file: ./docker-compose-common.yml
-      service: base
-    image: base-ubuntu
+    image: asterisk
+    entrypoint: sh -c 'ip r r default via 120.0.28.2 && exec asterisk'
     volumes:
-      - ./data/asterisk:/data
+      - ./data/asterisk:/etc/asterisk
     networks:
       entr1-dmz:
         ipv4_address: 120.0.28.28
-    
-      
 
   ### Intranet network ###
   entr1-ovpn:
