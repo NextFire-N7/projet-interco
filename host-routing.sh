@@ -23,4 +23,6 @@ ip route flush table 1
 ip route add table 1 120.0.16.0/20 via 120.0.16.2
 
 ## AS routes
-ip route add 120.0.64.0/20 via 120.2.0.7 # AS4
+ip route add 120.0.32.0/20 via 120.2.0.20   # AS2
+ip route add 120.0.48.0/20 via 120.2.0.6    # AS3
+ip route add 120.0.64.0/20 via 120.2.0.7    # AS4
