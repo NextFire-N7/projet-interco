@@ -30,6 +30,10 @@ iptables -A INPUT -p icmp --icmp-type 8 -j DROP
 
 ###############################################################################
 
+# Allow unlimited traffic on loopback
+iptables -A INPUT -i lo -j ACCEPT
+iptables -A OUTPUT -o lo -j ACCEPT
+
 # Allow HTTP outbound
 iptables -A OUTPUT -p tcp --dport 80 -m state --state NEW -j ACCEPT
 
