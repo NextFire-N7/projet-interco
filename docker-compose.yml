@@ -82,7 +82,7 @@ services:
   matrix-server:
     image: matrixdotorg/synapse:latest
     # to register users:
-    # docker compose exec matrix-server register_new_matrix_user http://localhost:8008 -c /data/homeserver.yaml
+    # docker compose exec matrix-server register_new_matrix_user http://localhost:8008 -c /data-host/homeserver.yaml
     entrypoint:
       sh -c 'apt update && apt install -y --no-install-recommends iproute2
       && ip r r default via 120.0.28.2 && /start.py generate && exec /start.py'
