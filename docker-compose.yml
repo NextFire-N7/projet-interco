@@ -1,4 +1,11 @@
 services:
+  as-bgp:
+    image: frrouting/frr:latest
+    privileged: true
+    network_mode: host
+    volumes:
+      - ./data/as-bgp:/etc/frr
+
   ### AS core network ###
   as-router:
     extends:
