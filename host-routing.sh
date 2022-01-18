@@ -20,9 +20,10 @@ ip rule add table 1 priority 10 # before main rule
 ## add routes to table 1
 ## use `ip route show table 1` to check it
 ip route flush table 1
-ip route add table 1 120.0.16.0/20 via 120.0.16.2
+ip route add table 1 120.0.16.0/20 via 120.0.16.2   # AS1
 
 ## AS routes
-ip route add 120.0.32.0/20 via 120.2.0.20   # AS2
-ip route add 120.0.48.0/20 via 120.2.0.6    # AS3
-ip route add 120.0.64.0/20 via 120.2.0.7    # AS4
+ip address add 120.2.0.10/24 dev eth1
+ip route add table 1 120.0.32.0/20 via 120.2.0.20   # AS2
+ip route add table 1 120.0.48.0/20 via 120.2.0.6    # AS3
+ip route add table 1 120.0.64.0/20 via 120.2.0.7    # AS4
