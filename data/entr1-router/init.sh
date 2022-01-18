@@ -18,3 +18,4 @@ iptables -t nat -p udp --sport 1194 -j ACCEPT
 iptables -t nat -p tcp --dport 1194 -j ACCEPT
 iptables -t nat -p tcp --sport 1194 -j ACCEPT
 iptables -t nat -p sip -j ACCEPT
+iptables -A FORWARD -s 120.0.20.0/22 -j ACCEPT
