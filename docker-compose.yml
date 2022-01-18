@@ -115,15 +115,41 @@ services:
   # IPv4 120.0.28.28 (non-pris normalement)
   # LES FICHIERS DE CONFIG DOIVENT ÊTRE MONTABLES AINSI
   # QUE LE SCRIPT 'asteriskConfig.sh' dans /docker/asterisk
-  srv-asterisk:
-    image: asterisk
-    entrypoint: sh -c 'ip r r default via 120.0.28.2 && exec asterisk -cv'
+  # srv-asterisk:
+  #   image: asterisk
+  #   entrypoint: sh -c 'ip r r default via 120.0.28.2 && exec asterisk -cv'
+  #   privileged: true
+  #   volumes:
+  #     - ./data/asterisk:/etc/asterisk
+  #   networks:
+  #     entr1-dmz:
+  #       ipv4_address: 120.0.28.28
+
+  teamspeak:
+    image: teamspeak:latest
+    entrypoint: sh -c 'ip r r default via 120.0.28.2 && exec entrypoint.sh ts3server'
+    environment:
+      TS3SERVER_DB_PLUGIN: ts3db_mariadb
+      TS3SERVER_DB_SQLCREATEPATH: create_mariadb
+      TS3SERVER_DB_HOST: db
+      TS3SERVER_DB_USER: root
+      TS3SERVER_DB_PASSWORD: example
+      TS3SERVER_DB_NAME: teamspeak
+      TS3SERVER_DB_WAITUNTILREADY: 30
+      TS3SERVER_LICENSE: accept
     privileged: true
-    volumes:
-      - ./data/asterisk:/etc/asterisk
     networks:
       entr1-dmz:
-        ipv4_address: 120.0.28.28
+        ipv4_address: 120.0.28.40
+
+  db:
+    image: mariadb:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+      MYSQL_DATABASE: teamspeak
+    networks:
+      entr1-dmz:
+        ipv4_address: 120.0.28.41
 
   ### Intranet network ###
   entr1-ovpn:
